@@ -7,6 +7,6 @@ namespace Alquileres.Application
 {
     public interface IOwner
     {
-        public List<Owner> GetOwners();
+
     }
 }

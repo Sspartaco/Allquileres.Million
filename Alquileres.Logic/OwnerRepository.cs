@@ -15,16 +15,6 @@ namespace Alquileres.Logic
             _context = context;
         }
 
-        public List<Owner> GetOwners()
-        {
-            try
-            {
-                return _context.Owners.ToList();
-            }
-            catch
-            {
-                throw;
-            }
-        }
+
     }
 }

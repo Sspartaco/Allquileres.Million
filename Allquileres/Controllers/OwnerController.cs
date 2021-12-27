@@ -15,19 +15,5 @@ namespace Alquileres.Api.Controllers
             _OwnerRepository = ownerRepository;
         }
 
-
-        [HttpGet]
-        public ActionResult<List<Owner>> GetOwners()
-        {
-            try
-            {
-                return Ok(_OwnerRepository.GetOwners());
-            }
-            catch (System.Exception)
-            {
-
-                throw;
-            }
-        }
     }
 }
