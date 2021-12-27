@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Alquileres.Domain
 {
@@ -37,6 +38,9 @@ namespace Alquileres.Domain
         /// <summary>
         /// Id Propiedad (FK)
         /// </summary>
+        [ForeignKey("Property")]
         public string IdProperty { get; set; }
+
+        public virtual Property Properties { get; set; }
     }
 }

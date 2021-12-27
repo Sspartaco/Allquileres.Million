@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Alquileres.Domain
 {
@@ -49,7 +50,10 @@ namespace Alquileres.Domain
         /// <summary>
         /// Id del dueño
         /// </summary>
+        [ForeignKey("Owner")]
         public string IdOwner
         { get; set; }
+
+        public virtual Owner Owners { get; set; }
     }
 }
