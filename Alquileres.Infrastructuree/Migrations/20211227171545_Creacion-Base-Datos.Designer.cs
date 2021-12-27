@@ -3,6 +3,7 @@ using System;
 using Alquileres.Infrastructuree.EntityFrameworkDatabaseContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Alquileres.Infrastructuree.Migrations
 {
     [DbContext(typeof(AlquileresDBContext))]
-    partial class AlquileresDBContextModelSnapshot : ModelSnapshot
+    [Migration("20211227171545_Creacion-Base-Datos")]
+    partial class CreacionBaseDatos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.1");
