@@ -16,6 +16,7 @@
     <ProjectReference Include="..\Alquileres.Application\Alquileres.Application.csproj" />
     <ProjectReference Include="..\Alquileres.Domain\Alquileres.Domain.csproj" />
     <ProjectReference Include="..\Alquileres.Infrastructuree\Alquileres.Infrastructuree.csproj" />
+    <ProjectReference Include="..\Alquileres.Mapping\Alquileres.Common.csproj" />
   </ItemGroup>
 
 </Project>
