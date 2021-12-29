@@ -1,6 +1,7 @@
 using Alquileres.Application;
 using Alquileres.Infrastructuree.EntityFrameworkDatabaseContext;
 using Alquileres.Logic;
+using Alquileres.Mapping.Profiles;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -26,12 +27,14 @@ namespace Allquileres
         {
             services.AddControllers();
             services.AddScoped(typeof(IOwner), typeof(OwnerRepository));
+            services.AddScoped(typeof(IProperty), typeof(PropertyRepository));
             services.AddDbContext<AlquileresDBContext>(options => options.UseSqlite("Data Source=alquileres.db"));
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Alquileres.Api", Version = "v1" });
                 c.IncludeXmlComments(Path.Combine(System.AppContext.BaseDirectory, "Alquileres.Api.xml"));
             });
+            services.AddAutoMapper(typeof(Profiles).Assembly);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

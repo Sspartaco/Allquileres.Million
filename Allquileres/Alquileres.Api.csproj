@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -19,6 +20,7 @@
     <ProjectReference Include="..\Alquileres.Application\Alquileres.Application.csproj" />
     <ProjectReference Include="..\Alquileres.Infrastructuree\Alquileres.Infrastructuree.csproj" />
     <ProjectReference Include="..\Alquileres.Logic\Alquileres.Logic.csproj" />
+    <ProjectReference Include="..\Alquileres.Mapping\Alquileres.Common.csproj" />
   </ItemGroup>
 
 
