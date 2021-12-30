@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Alquileres.Application;
+using Alquileres.Common;
 using System;
 using Microsoft.AspNetCore.Http;
 
@@ -27,7 +27,7 @@ namespace Alquileres.Api.Controllers
         /// <response code="200">Se adiciona correctamente la persona a la base de datos</response>
         /// <response code="400">Alguna validación ha fallado, en esta se devuelve el detalle de la validación que fallo.</response>
         /// <response code="404">Alguna operación fallo, se devuelve su correspondiente mensaje de excepción.</response>
-        [HttpPost]
+        [HttpPost("AddOwner")]
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
@@ -56,7 +56,7 @@ namespace Alquileres.Api.Controllers
         /// <returns>Retorna un arreglo en donde se encuentran todas las personas de tipo deuño</returns>
         /// <response code="200">Retorna un arreglo de todos los Owner</response>
         /// <response code="404">Alguna operación fallo, se devuelve su correspondiente mensaje de excepción.</response>
-        [HttpGet]
+        [HttpGet("GetOwners")]
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
         public ActionResult<OwnerViewModel[]> GetOwners()

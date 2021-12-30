@@ -1,7 +1,7 @@
 using Alquileres.Application;
+using Alquileres.Common;
 using Alquileres.Infrastructuree.EntityFrameworkDatabaseContext;
 using Alquileres.Logic;
-using Alquileres.Mapping.Profiles;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;

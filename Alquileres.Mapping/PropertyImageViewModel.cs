@@ -2,7 +2,7 @@
 
 namespace Alquileres.Common
 {
-    public class PropertyViewModel : Property
+    public class PropertyImageViewModel : PropertyImage
     {
     }
 }
