@@ -1,6 +1,6 @@
 ﻿using Alquileres.Domain;
 
-namespace Alquileres
+namespace Alquileres.Common
 {
     public class OwnerViewModel : Owner
     {

@@ -1,4 +1,4 @@
-﻿using Alquileres.Application;
+﻿using Alquileres.Common;
 using Alquileres.Domain;
 using Alquileres.Infrastructuree.EntityFrameworkDatabaseContext;
 using AutoMapper;
