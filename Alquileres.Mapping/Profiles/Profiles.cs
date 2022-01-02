@@ -9,6 +9,7 @@ namespace Alquileres.Common
         {
             CreateMap<OwnerViewModel, Owner>().ReverseMap();
             CreateMap<OwnerViewModel, Owner>();
+            CreateMap<PropertyViewModel, Property>().ReverseMap();
             CreateMap<PropertyViewModel, Property>();
             CreateMap<PropertyImageViewModel, PropertyImage>();
             CreateMap<PropertyTraceViewModel, PropertyTrace>();

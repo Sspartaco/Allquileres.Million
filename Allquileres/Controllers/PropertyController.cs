@@ -32,7 +32,7 @@ namespace Alquileres.Api.Controllers
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
-        public ActionResult<string> AddProperty(PropertyViewModel property)
+        public ActionResult<string> AddProperty([FromBody] PropertyViewModel property)
         {
             try
             {
@@ -63,7 +63,7 @@ namespace Alquileres.Api.Controllers
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
-        public ActionResult<string> AddFullProperty(FullPropertyViewModel fullProperty)
+        public ActionResult<string> AddFullProperty([FromBody] FullPropertyViewModel fullProperty)
         {
             try
             {
@@ -74,6 +74,58 @@ namespace Alquileres.Api.Controllers
                     return Ok(strMessageResult.Split(';')[2]);
                 else
                     return BadRequest(strMessageResult.Split(';')[2]);
+
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Metodo para obtener la estructura basica de una propiedad
+        /// </summary>
+        /// <returns>Retorna un arreglo con toda su estructura correspondiente.</returns>
+        /// <response code="200">Retorna el arreglo correspondiente a la propiedad</response>
+        /// <response code="404">Alguna operación fallo, se devuelve su correspondiente mensaje de excepción.</response>
+        [HttpGet("GetBasicProperty")]
+        [ProducesResponseType(typeof(PropertyViewModel[]), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+        public ActionResult<PropertyViewModel[]> GetBasicProperty()
+        {
+            try
+            {
+                return Ok(_propertyRepository.GetBasicProperty());
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Metodo para agregar una propiedad
+        /// </summary>
+        /// <param name="fullProperty">Cuerpo correspondiente para adicionar una propiedad</param>
+        /// <returns>Retorna un string indicando si la operación fue exitosa o no.</returns>
+        /// <response code="200">Se adiciona correctamente la propiedad a la base de datos</response>
+        /// <response code="400">Alguna validación ha fallado, en esta se devuelve el detalle de la validación que fallo.</response>
+        /// <response code="404">Alguna operación fallo, se devuelve su correspondiente mensaje de excepción.</response>
+        [HttpPost("UpdateProperty")]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+        public ActionResult<string> UpdateProperty([FromBody] FullPropertyViewModel fullProperty)
+        {
+            try
+            {
+                string strMessageResult = null;
+                strMessageResult = _propertyRepository.UpdateProperty(fullProperty);
+
+                if (strMessageResult.Split(';')[0] == "1")
+                    return Ok(strMessageResult.Split(';')[1]);
+                else
+                    return BadRequest(strMessageResult.Split(';')[1]);
 
             }
             catch (Exception ex)
