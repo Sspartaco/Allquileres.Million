@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Alquileres.Domain
 {
@@ -12,6 +13,7 @@ namespace Alquileres.Domain
         /// <summary>
         /// Id seguimiento propiedad
         /// </summary>
+        [JsonIgnore]
         [Key]
         public string IdPropertyTrace { get; set; }
 
@@ -41,6 +43,7 @@ namespace Alquileres.Domain
         [ForeignKey("Property")]
         public string IdProperty { get; set; }
 
+        [JsonIgnore]
         public virtual Property Properties { get; set; }
     }
 }

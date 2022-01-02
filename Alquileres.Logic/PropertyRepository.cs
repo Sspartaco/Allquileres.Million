@@ -4,6 +4,7 @@ using Alquileres.Infrastructuree.EntityFrameworkDatabaseContext;
 using Alquileres.Common;
 using AutoMapper;
 using System;
+using System.Linq;
 
 namespace Alquileres.Logic
 {
@@ -31,11 +32,11 @@ namespace Alquileres.Logic
                 Property property = _mapper.Map<Property>(propertyToAdd);
 
                 strMessageToReturn = string.Concat(Guid.NewGuid().ToString(), ";");
-                property.IdOwner = strMessageToReturn.Split(';')[0];
+                property.IdProperty = strMessageToReturn.Split(';')[0];
 
                 _context.Property.Add(property);
                 _context.SaveChanges();
-                strMessageToReturn += "Se ha adicionado correctamente la propiedad";
+                strMessageToReturn += "1;Se ha adicionado correctamente la propiedad";
 
                 return strMessageToReturn;
             }
@@ -71,7 +72,74 @@ namespace Alquileres.Logic
                 _context.PropertyImage.Add(propertyImage);
                 _context.PropertyTrace.Add(propertyTrace);
                 _context.SaveChanges();
-                strMessageToReturn += "Se ha adicionado correctamente la propiedad.";
+                strMessageToReturn += "1;Se ha adicionado correctamente la propiedad.";
+
+                return strMessageToReturn;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Metodo para obtener solo la estructura basica de una propiedad
+        /// </summary>
+        /// <returns>Retorna un array de tipo PropertyViewModel con la estructura basica de una propiedad</returns>
+        public PropertyViewModel[] GetBasicProperty()
+        {
+            try
+            {
+                var result = _context.Property.ToArray();
+                return _mapper.Map<PropertyViewModel[]>(result);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Metodo para actualizar el seguimiento y la imagen de una propiedad en caso de que exista alguna información de no ser así se procede a agregar un registro.
+        /// </summary>
+        /// <param name="fullProperty">Cuerpo correspondiente para hacer la correspondiente actualización o adición de registro.</param>
+        /// <returns>Retorna un string indicando el resultado de la ejecución</returns>
+        public string UpdateProperty(FullPropertyViewModel fullProperty)
+        {
+            try
+            {
+                Property property = _mapper.Map<Property>(fullProperty.Property);
+                PropertyImage propertyImage = _mapper.Map<PropertyImage>(fullProperty.PropertyImage);
+                PropertyTrace propertyTrace = _mapper.Map<PropertyTrace>(fullProperty.PropertyTrace);
+
+                string strMessageToReturn = null;
+                strMessageToReturn = property.IdProperty;
+                if (property.IdProperty != null)
+                {
+                    propertyImage.IdProperty = property.IdProperty;
+                    propertyTrace.IdProperty = property.IdProperty;
+
+                    propertyImage.IdPropertyImage = Guid.NewGuid().ToString();
+                    propertyTrace.IdPropertyTrace = Guid.NewGuid().ToString();
+
+                    var existingPropertyImage = _context.PropertyImage;
+                    if (existingPropertyImage.Where(x => x.IdProperty == property.IdProperty).Count() > 0)
+                        _context.PropertyImage.Update(propertyImage);
+                    else
+                        _context.PropertyImage.Add(propertyImage);
+
+                    var existingPropertyTrace = _context.PropertyTrace;
+                    if (existingPropertyTrace.Where(x => x.IdProperty == property.IdProperty).Count() > 0)
+                        _context.PropertyTrace.Update(propertyTrace);
+                    else
+                        _context.PropertyTrace.Add(propertyTrace);
+
+                    _context.SaveChanges();
+
+                    strMessageToReturn += string.Concat("1;", "Se ha actualizado correctamente la información de la propiedad.");
+                }
+                else
+                    strMessageToReturn += string.Concat("2;", "Información incompleta por favor vuelva a intentar.");
 
                 return strMessageToReturn;
             }

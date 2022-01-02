@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Alquileres.Domain
 {
@@ -30,6 +31,7 @@ namespace Alquileres.Domain
         /// </summary>
         public bool Enable { get; set; }
 
+        [JsonIgnore]
         public virtual Property Properties { get; set; }
     }
 }

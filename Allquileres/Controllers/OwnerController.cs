@@ -31,7 +31,7 @@ namespace Alquileres.Api.Controllers
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
-        public ActionResult<string> AddOwner(OwnerViewModel owner)
+        public ActionResult<string> AddOwner([FromBody]OwnerViewModel owner)
         {
             try
             {

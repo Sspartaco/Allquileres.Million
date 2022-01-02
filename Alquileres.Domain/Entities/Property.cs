@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Alquileres.Domain
 {
@@ -14,6 +15,7 @@ namespace Alquileres.Domain
         /// Id propiedad
         /// </summary>
         [Key]
+        [JsonIgnore]
         public string IdProperty
         { get; set; }
 
@@ -54,6 +56,7 @@ namespace Alquileres.Domain
         public string IdOwner
         { get; set; }
 
+        [JsonIgnore]
         public virtual Owner Owners { get; set; }
     }
 }
