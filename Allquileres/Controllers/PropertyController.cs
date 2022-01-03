@@ -122,10 +122,10 @@ namespace Alquileres.Api.Controllers
                 string strMessageResult = null;
                 strMessageResult = _propertyRepository.UpdateProperty(fullProperty);
 
-                if (strMessageResult.Split(';')[0] == "1")
-                    return Ok(strMessageResult.Split(';')[1]);
+                if (strMessageResult.Split(';')[1] == "1")
+                    return Ok(strMessageResult.Split(';')[2]);
                 else
-                    return BadRequest(strMessageResult.Split(';')[1]);
+                    return BadRequest(strMessageResult.Split(';')[2]);
 
             }
             catch (Exception ex)
@@ -149,6 +149,28 @@ namespace Alquileres.Api.Controllers
             try
             {
                 return Ok(_propertyRepository.GetFullProperty(idProperty));
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Metodo para obtener toda la estructura de una propiedad
+        /// </summary>
+        /// <param name="idProperty">Id correspondiente de la propiedad que se desea filtrar</param>
+        /// <returns>Retorna una entidad con toda su estructura correspondiente.</returns>
+        /// <response code="200">Retorna la entidad correspondiente a la propiedad</response>
+        /// <response code="404">Alguna operación fallo, se devuelve su correspondiente mensaje de excepción.</response>
+        [HttpGet("GetBasicPropertyById")]
+        [ProducesResponseType(typeof(PropertyViewModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+        public ActionResult<PropertyViewModel> GetBasicPropertyById(string idProperty)
+        {
+            try
+            {
+                return Ok(_propertyRepository.GetBasicPropertyById(idProperty));
             }
             catch (Exception ex)
             {

@@ -113,23 +113,23 @@ namespace Alquileres.Logic
                 PropertyTrace propertyTrace = _mapper.Map<PropertyTrace>(fullProperty.PropertyTrace);
 
                 string strMessageToReturn = null;
-                strMessageToReturn = property.IdProperty;
+                strMessageToReturn = string.Concat(property.IdProperty, ";");
                 if (property.IdProperty != null)
                 {
                     propertyImage.IdProperty = property.IdProperty;
                     propertyTrace.IdProperty = property.IdProperty;
 
-                    propertyImage.IdPropertyImage = Guid.NewGuid().ToString();
-                    propertyTrace.IdPropertyTrace = Guid.NewGuid().ToString();
+                    propertyImage.IdPropertyImage = (fullProperty.PropertyImage.IdPropertyImage == "" ? null : fullProperty.PropertyImage.IdPropertyImage) == null ? Guid.NewGuid().ToString() : fullProperty.PropertyImage.IdPropertyImage;
+                    propertyTrace.IdPropertyTrace = (fullProperty.PropertyTrace.IdPropertyTrace == "" ? null : fullProperty.PropertyTrace.IdPropertyTrace) == null ? Guid.NewGuid().ToString() : fullProperty.PropertyTrace.IdPropertyTrace;
 
                     var existingPropertyImage = _context.PropertyImage;
-                    if (existingPropertyImage.Where(x => x.IdProperty == property.IdProperty).Count() > 0)
+                    if (existingPropertyImage.Where(x => x.IdPropertyImage == propertyImage.IdPropertyImage).Count() > 0)
                         _context.PropertyImage.Update(propertyImage);
                     else
                         _context.PropertyImage.Add(propertyImage);
 
                     var existingPropertyTrace = _context.PropertyTrace;
-                    if (existingPropertyTrace.Where(x => x.IdProperty == property.IdProperty).Count() > 0)
+                    if (existingPropertyTrace.Where(x => x.IdPropertyTrace == propertyTrace.IdPropertyTrace).Count() > 0)
                         _context.PropertyTrace.Update(propertyTrace);
                     else
                         _context.PropertyTrace.Add(propertyTrace);
@@ -152,7 +152,7 @@ namespace Alquileres.Logic
         /// <summary>
         /// Metodo para obtener una propiedad con toda su estructura
         /// </summary>
-        /// <param name="idPropeerty">Id correspondiente de la propiedad que se desea filtrar</param>
+        /// <param name="idProperty">Id correspondiente de la propiedad que se desea filtrar</param>
         /// <returns>Retorna una entidad de tipo FullPropertyViewModel</returns>
         public FullPropertyViewModel GetFullProperty(string idProperty)
         {
@@ -184,6 +184,24 @@ namespace Alquileres.Logic
                 fullPropertyViewModel.PropertyTrace = propertyTraceViewModel;
 
                 return fullPropertyViewModel;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Metodo para obtener solo la estructura basica de una propiedad filtrada por su id
+        /// </summary>
+        /// <param name="idProperty">Id correspondiente de la propiedad que se desea filtrar</param>
+        /// <returns>Retorna una entidad PropertyViewModel con la estructura basica de una propiedad</returns>
+        public PropertyViewModel GetBasicPropertyById(string idProperty)
+        {
+            try
+            {
+                var property = _context.Property.Where(x => x.IdProperty == idProperty).FirstOrDefault();
+                return _mapper.Map<PropertyViewModel>(property);
             }
             catch
             {
