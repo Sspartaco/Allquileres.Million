@@ -133,5 +133,27 @@ namespace Alquileres.Api.Controllers
                 return NotFound(ex.Message.ToString());
             }
         }
+
+        /// <summary>
+        /// Metodo para obtener toda la estructura de una propiedad
+        /// </summary>
+        /// <param name="idProperty">Id correspondiente de la propiedad que se desea filtrar</param>
+        /// <returns>Retorna una entidad con toda su estructura correspondiente.</returns>
+        /// <response code="200">Retorna la entidad correspondiente a la propiedad</response>
+        /// <response code="404">Alguna operación fallo, se devuelve su correspondiente mensaje de excepción.</response>
+        [HttpGet("GetFullPropertyById")]
+        [ProducesResponseType(typeof(FullPropertyViewModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+        public ActionResult<FullPropertyViewModel> GetFullPropertyById(string idProperty)
+        {
+            try
+            {
+                return Ok(_propertyRepository.GetFullProperty(idProperty));
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message.ToString());
+            }
+        }
     }
 }

@@ -30,5 +30,12 @@ namespace Alquileres.Application
         /// <param name="fullProperty">Cuerpo correspondiente para hacer la correspondiente actualización o adición de registro.</param>
         /// <returns>Retorna un string indicando el resultado de la ejecución</returns>
         public string UpdateProperty(FullPropertyViewModel fullProperty);
+
+        /// <summary>
+        /// Metodo para obtener una propiedad con toda su estructura
+        /// </summary>
+        /// <param name="idPropeerty">Id correspondiente de la propiedad que se desea filtrar</param>
+        /// <returns>Retorna una entidad de tipo FullPropertyViewModel</returns>
+        public FullPropertyViewModel GetFullProperty(string idProperty);
     }
 }
