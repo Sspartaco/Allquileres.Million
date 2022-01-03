@@ -37,5 +37,12 @@ namespace Alquileres.Application
         /// <param name="idPropeerty">Id correspondiente de la propiedad que se desea filtrar</param>
         /// <returns>Retorna una entidad de tipo FullPropertyViewModel</returns>
         public FullPropertyViewModel GetFullProperty(string idProperty);
+
+        /// <summary>
+        /// Metodo para obtener solo la estructura basica de una propiedad filtrada por su id
+        /// </summary>
+        /// <param name="idProperty">Id correspondiente de la propiedad que se desea filtrar</param>
+        /// <returns>Retorna una entidad PropertyViewModel con la estructura basica de una propiedad</returns>
+        public PropertyViewModel GetBasicPropertyById(string idProperty);
     }
 }
