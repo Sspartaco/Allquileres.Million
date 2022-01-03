@@ -148,5 +148,47 @@ namespace Alquileres.Logic
                 throw;
             }
         }
+
+        /// <summary>
+        /// Metodo para obtener una propiedad con toda su estructura
+        /// </summary>
+        /// <param name="idPropeerty">Id correspondiente de la propiedad que se desea filtrar</param>
+        /// <returns>Retorna una entidad de tipo FullPropertyViewModel</returns>
+        public FullPropertyViewModel GetFullProperty(string idProperty)
+        {
+            try
+            {
+                var property = _context.Property.Where(x => x.IdProperty == idProperty).FirstOrDefault();
+                PropertyImageViewModel propertyImageViewModel = new PropertyImageViewModel();
+                PropertyTraceViewModel propertyTraceViewModel = new PropertyTraceViewModel();
+                PropertyViewModel propertyViewModel = new PropertyViewModel();
+                if (property != null)
+                {
+                    propertyViewModel = _mapper.Map<PropertyViewModel>(property);
+                    var propertyImage = _context.PropertyImage.Where(x => x.IdProperty == property.IdProperty).FirstOrDefault();
+                    if (propertyImage != null)
+                        propertyImageViewModel = _mapper.Map<PropertyImageViewModel>(propertyImage);
+                    else
+                        propertyImageViewModel = new PropertyImageViewModel();
+
+                    var propertyTrace = _context.PropertyTrace.Where(x => x.IdProperty == property.IdProperty).FirstOrDefault();
+                    if (propertyTrace != null)
+                        propertyTraceViewModel = _mapper.Map<PropertyTraceViewModel>(propertyTrace);
+                    else
+                        propertyTraceViewModel = new PropertyTraceViewModel();
+                }
+
+                FullPropertyViewModel fullPropertyViewModel = new FullPropertyViewModel();
+                fullPropertyViewModel.Property = propertyViewModel;
+                fullPropertyViewModel.PropertyImage = propertyImageViewModel;
+                fullPropertyViewModel.PropertyTrace = propertyTraceViewModel;
+
+                return fullPropertyViewModel;
+            }
+            catch
+            {
+                throw;
+            }
+        }
     }
 }

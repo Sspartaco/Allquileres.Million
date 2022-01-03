@@ -7,12 +7,16 @@ namespace Alquileres.Common
     {
         public Profiles()
         {
+
+
             CreateMap<OwnerViewModel, Owner>().ReverseMap();
             CreateMap<OwnerViewModel, Owner>();
             CreateMap<PropertyViewModel, Property>().ReverseMap();
             CreateMap<PropertyViewModel, Property>();
             CreateMap<PropertyImageViewModel, PropertyImage>();
+            CreateMap<PropertyImageViewModel, PropertyImage>().ReverseMap();
             CreateMap<PropertyTraceViewModel, PropertyTrace>();
+            CreateMap<PropertyTraceViewModel, PropertyTrace>().ReverseMap();
         }
     }
 }
