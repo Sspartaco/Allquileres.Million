@@ -67,7 +67,6 @@ namespace Alquileres.Logic
             }
             catch
             {
-
                 throw;
             }
         }
